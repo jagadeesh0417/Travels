@@ -38,7 +38,7 @@ Create `.env.local`:
 NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
 NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
 NEXT_PUBLIC_WHATSAPP_NUMBER=919876543210
-NEXT_PUBLIC_SITE_URL=https://bdl-travels.vercel.app
+NEXT_PUBLIC_SITE_URL=https://jagadeesh0417.github.io/Travels
 ```
 
 ## Admin Panel
@@ -126,14 +126,15 @@ src/
 
 ## Deployment
 
-### Vercel
+### GitHub Pages
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new)
+Live at: [https://jagadeesh0417.github.io/Travels/](https://jagadeesh0417.github.io/Travels/)
 
-1. Push to GitHub
-2. Import to Vercel
-3. Set environment variables
-4. Deploy
+## Deploy Locally
+
+```bash
+npm run deploy
+```
 
 ## License
 
