@@ -2,17 +2,25 @@
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { destinations_list } from '@/lib/data';
+import { destinations_list, vehicleCategories } from '@/lib/data';
 import ScrollReveal from '@/components/ui/ScrollReveal';
 
+type VehicleType = { id: string; label: string; capacity: string; price: string };
+
 export default function Booking() {
-  const [form, setForm] = useState({ name: '', phone: '', destination: 'Hyderabad', date: '', passengers: '1' });
+  const [form, setForm] = useState({
+    name: '', phone: '', destination: 'Hyderabad', date: '', passengers: '1',
+    vehicleCategory: 'cars', vehicleType: 'sedan',
+  });
   const [submitted, setSubmitted] = useState(false);
   const [focusedField, setFocusedField] = useState('');
 
+  const selectedCategory = vehicleCategories.find(c => c.id === form.vehicleCategory)!;
+  const selectedType = selectedCategory.types.find(t => t.id === form.vehicleType)!;
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const msg = `Hi BDL Travels! I want to book a trip.%0A%0A*Name:* ${form.name}%0A*Phone:* ${form.phone}%0A*Destination:* ${form.destination}%0A*Date:* ${form.date}%0A*Passengers:* ${form.passengers}`;
+    const msg = `Hi BDL Travels! I want to book a trip.%0A%0A*Name:* ${form.name}%0A*Phone:* ${form.phone}%0A*Vehicle:* ${selectedType.label} (${selectedCategory.label})%0A*Capacity:* ${selectedType.capacity}%0A*Destination:* ${form.destination}%0A*Date:* ${form.date}%0A*Passengers:* ${form.passengers}`;
     window.open(`https://wa.me/${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '919876543210'}?text=${msg}`, '_blank');
     setSubmitted(true);
     setTimeout(() => setSubmitted(false), 4000);
@@ -117,6 +125,45 @@ export default function Booking() {
                     </select>
                   </div>
 
+                  <div>
+                    <label className="block text-xs tracking-wider text-text-secondary mb-3 uppercase">Select Vehicle</label>
+                    <div className="flex gap-2 mb-3">
+                      {vehicleCategories.map((cat) => (
+                        <button
+                          key={cat.id}
+                          type="button"
+                          onClick={() => setForm({ ...form, vehicleCategory: cat.id, vehicleType: cat.types[0].id })}
+                          className={`flex-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium transition-all duration-300 ${
+                            form.vehicleCategory === cat.id
+                              ? 'bg-accent text-white shadow-lg'
+                              : 'bg-white/50 border border-light-gray text-text-secondary hover:border-accent/50'
+                          }`}
+                        >
+                          <span>{cat.icon}</span>
+                          <span>{cat.label}</span>
+                        </button>
+                      ))}
+                    </div>
+                    <div className="grid grid-cols-2 gap-2">
+                      {selectedCategory.types.map((t: VehicleType) => (
+                        <button
+                          key={t.id}
+                          type="button"
+                          onClick={() => setForm({ ...form, vehicleType: t.id })}
+                          className={`p-3 rounded-xl text-left transition-all duration-300 ${
+                            form.vehicleType === t.id
+                              ? 'bg-accent/10 border-2 border-accent'
+                              : 'bg-white/50 border-2 border-light-gray hover:border-accent/30'
+                          }`}
+                        >
+                          <span className="block text-sm font-medium text-text">{t.label}</span>
+                          <span className="block text-xs text-text-secondary mt-0.5">{t.capacity}</span>
+                          <span className="block text-xs text-accent font-medium mt-0.5">{t.price}</span>
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
                   <div className="grid grid-cols-2 gap-4">
                     <div>
                       <label className="block text-xs tracking-wider text-text-secondary mb-2 uppercase">Date</label>
@@ -139,7 +186,7 @@ export default function Booking() {
                         onBlur={() => setFocusedField('')}
                         className={inputClass('passengers')}
                       >
-                        {[1, 2, 3, 4, 5, 6].map((n) => (
+                        {[1, 2, 3, 4, 5, 6, 8, 10, 12, 16, 20, 30, 40].map((n) => (
                           <option key={n} value={n}>{n} {n === 1 ? 'Passenger' : 'Passengers'}</option>
                         ))}
                       </select>

@@ -2,6 +2,7 @@
 
 import { ReactNode, useEffect } from 'react';
 import Lenis from 'lenis';
+import WhatsAppFloat from '@/components/ui/WhatsAppFloat';
 
 export default function ClientLayout({ children }: { children: ReactNode }) {
   useEffect(() => {
@@ -21,5 +22,10 @@ export default function ClientLayout({ children }: { children: ReactNode }) {
     return () => lenis.destroy();
   }, []);
 
-  return <>{children}</>;
+  return (
+    <>
+      {children}
+      <WhatsAppFloat />
+    </>
+  );
 }

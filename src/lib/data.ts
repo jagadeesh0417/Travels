@@ -136,3 +136,28 @@ export const galleryImages: GalleryImage[] = [
 ];
 
 export const destinations_list = ['Hyderabad', 'Tirupati', 'Bangalore', 'Goa'];
+
+export const vehicleCategories = [
+  {
+    id: 'cars',
+    label: 'Cars',
+    icon: '🚗',
+    types: [
+      { id: 'sedan', label: 'Sedan', capacity: '4 Passengers', price: '₹12/km' },
+      { id: 'suv', label: 'SUV', capacity: '6 Passengers', price: '₹18/km' },
+      { id: 'mini', label: 'Mini Traveller', capacity: '8 Passengers', price: '₹22/km' },
+      { id: 'luxury', label: 'Luxury Car', capacity: '4 Passengers', price: '₹28/km' },
+    ],
+  },
+  {
+    id: 'buses',
+    label: 'Buses',
+    icon: '🚌',
+    types: [
+      { id: 'standard', label: 'Standard Bus', capacity: '32 Seats', price: '₹499/person' },
+      { id: 'sleeper', label: 'Sleeper Bus', capacity: '28 Berths', price: '₹699/person' },
+      { id: 'ac-sleeper', label: 'AC Sleeper', capacity: '40 Berths', price: '₹899/person' },
+      { id: 'luxury-bus', label: 'Luxury Bus', capacity: '20 Seats', price: '₹1,299/person' },
+    ],
+  },
+];
