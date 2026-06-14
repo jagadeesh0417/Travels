@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>BDL Travels</title>
+  <script>
+    (function () {
+      var base = '/Travels';
+      var path = location.pathname.slice(base.length) || '/';
+      sessionStorage.setItem('redirect', path);
+      location.replace(base + '/');
+    })();
+  </script>
+</head>
+<body></body>
+</html>
